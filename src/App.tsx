@@ -14,6 +14,8 @@ function App() {
 	);
 	const [headerData, setHeaderData] = useState({});
 	const [csvData, setCsvData] = useState([]);
+	const [isHeaderDataUpdated, setIsHeaderDataUpdated] = useState(false);
+	const [isCsvDataUpdated, setIsCsvDataUpdated] = useState(false);
 
 	const getHeaders = async () => {
 		const formData = new FormData();
@@ -25,7 +27,9 @@ function App() {
 			const { data } = await axios.post(HEADER_ENDPOINT, formData);
 			const { headersInFile, validHeaders } = data;
 
+			setIsHeaderDataUpdated(false);
 			setHeaderData(Object.assign(headerData, { headersInFile, validHeaders }));
+			setIsHeaderDataUpdated(true);
 
 			console.log("PASSING HEADER DATA: ", headerData);
 		} catch (err) {
@@ -42,7 +46,9 @@ function App() {
 
 		try {
 			const { data } = await axios.post(DATA_ENDPOINT, formData);
+			setIsCsvDataUpdated(false);
 			setCsvData(data);
+			setIsCsvDataUpdated(true);
 		} catch (err) {
 			setCsvData([]);
 		}
@@ -70,7 +76,7 @@ function App() {
 					<button onClick={() => getCsvData()}>Get Data</button>
 				</div>
 
-				{Boolean(headerData.length) && (
+				{isHeaderDataUpdated && (
 					<div>
 						<p>Headers List</p>
 						<pre>
@@ -79,7 +85,7 @@ function App() {
 					</div>
 				)}
 
-				{Boolean(csvData.length) && (
+				{isCsvDataUpdated && (
 					<div>
 						<p>CSV to JSON Data</p>
 						<pre>
