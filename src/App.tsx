@@ -71,6 +71,7 @@ function App() {
 						/>
 					</form>
 				</div>
+				<br />
 				<div>
 					<button onClick={() => getHeaders()}>Get Headers</button>
 					<button onClick={() => getCsvData()}>Get Data</button>
@@ -78,6 +79,7 @@ function App() {
 
 				{isHeaderDataUpdated && (
 					<div>
+						<br />
 						<p>Headers List</p>
 						<pre>
 							<code>{JSON.stringify(headerData, null, 2)}</code>
@@ -87,6 +89,7 @@ function App() {
 
 				{isCsvDataUpdated && (
 					<div>
+						<br />
 						<p>CSV to JSON Data</p>
 						<pre>
 							<code>{JSON.stringify(csvData, null, 2)}</code>
