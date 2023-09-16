@@ -8,7 +8,7 @@ function App() {
 	const HEADER_ENDPOINT = BASE_URL + "/fileupload/getheaders";
 	const DATA_ENDPOINT = BASE_URL + "/fileupload/getcsvdata";
 
-	const [csvfile, setCsvFile] = useState("");
+	const [csvfile, setCsvFile] = useState<File | null>(null);
 	const requestedHeaders = "description, industry, level, size,line_code, value,";
 
 	const [headerData, setHeaderData] = useState({});
@@ -18,7 +18,7 @@ function App() {
 
 	const getHeaders = async () => {
 		const formData = new FormData();
-		formData.append("csvfile", csvfile);
+		formData.append("csvfile", csvfile as File);
 		formData.append("headers", requestedHeaders);
 		console.log("FORM DATA: ", formData);
 
@@ -39,7 +39,7 @@ function App() {
 
 	const getCsvData = async () => {
 		const formData = new FormData();
-		formData.append("csvfile", csvfile);
+		formData.append("csvfile", csvfile as File);
 		formData.append("headers", requestedHeaders);
 		console.log("FORM DATA: ", formData);
 
@@ -65,7 +65,9 @@ function App() {
 							name="csvfile"
 							id="csvfile"
 							onChange={(e) => {
-								setCsvFile(e.target.files[0]);
+								if (e.target.files) {
+									setCsvFile(e.target.files[0]);
+								}
 							}}
 						/>
 					</form>
