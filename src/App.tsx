@@ -3,15 +3,14 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-	// const BASE_URL = "https://v2-csv-parser.onrender.com";
-	const BASE_URL = "http://localhost:8000";
+	const BASE_URL = "https://v2-csv-parser.onrender.com";
+	// const BASE_URL = "http://localhost:8000";
 	const HEADER_ENDPOINT = BASE_URL + "/fileupload/getheaders";
 	const DATA_ENDPOINT = BASE_URL + "/fileupload/getcsvdata";
 
 	const [csvfile, setCsvFile] = useState("");
-	const [requestedHeaders, setRequestedHeaders] = useState(
-		"description, industry, level, size,line_code, value,"
-	);
+	const requestedHeaders = "description, industry, level, size,line_code, value,";
+
 	const [headerData, setHeaderData] = useState({});
 	const [csvData, setCsvData] = useState([]);
 	const [isHeaderDataUpdated, setIsHeaderDataUpdated] = useState(false);
